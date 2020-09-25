@@ -58,3 +58,37 @@ export const useTask = (userID) => (selectedProject) => {
 
   return { tasks, archivedTasks };
 };
+
+export const useProjects = (userID) => {
+  const [projects, setProjects] = useState([]);
+  useEffect(() => {
+    db.firestore()
+      .collection('projects')
+      .where('userId', '==', userID)
+      .orderBy('projectId')
+      .get()
+      .then((snapshot) => {
+        const allProjects = snapshot.docs.map((project) => ({
+          ...project.data(),
+          //???
+          docId: project.id,
+        }));
+
+        //Check to make sure no infinite loops
+        if (
+          JSON.stringify(allProjects) !== JSON.stringify(projects)
+        ) {
+          setProjects(allProjects);
+        }
+      });
+  }, []);
+};
+
+// ftg34v ui
+
+// fh65c% pi
+// ltdv3a pi2
+
+// fgtrs2 ti
+// ftgd23 ti2
+// grqs3f ti3
