@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import moment from 'moment';
 import { db } from '../firebase';
 
-export const useTask = (userID) => (selectedProject) => {
+export const useTasks = (userID) => (selectedProject) => {
   const [tasks, setTasks] = useState([]);
   const [archivedTasks, setArchivedTasks] = useState([]);
 

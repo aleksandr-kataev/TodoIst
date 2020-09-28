@@ -1,3 +1,4 @@
+import React from 'react';
 import { db } from '../firebase';
 
 export const Checkbox = ({ id }) => {
@@ -8,5 +9,13 @@ export const Checkbox = ({ id }) => {
       .update({ archived: true });
   };
 
-  //add a return statement
+  return (
+    <div
+      className='checkbox-holder'
+      data-testid='checkbox-action'
+      onClick={() => archiveTask()}
+    >
+      <span className='checkbox' />
+    </div>
+  );
 };
