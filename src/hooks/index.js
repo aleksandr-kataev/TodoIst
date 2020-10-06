@@ -70,7 +70,6 @@ export const useProjects = (userID) => {
       .then((snapshot) => {
         const allProjects = snapshot.docs.map((project) => ({
           ...project.data(),
-          //???
           docId: project.id,
         }));
 
