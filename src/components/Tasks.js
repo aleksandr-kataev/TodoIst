@@ -4,9 +4,6 @@ import { useTasks } from '../hooks';
 
 export const Tasks = () => {
   const { tasks } = useTasks('ftg34v', 'fh65c%');
-
-  console.log(tasks);
-
   let projectName = '';
 
   return (

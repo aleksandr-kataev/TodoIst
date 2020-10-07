@@ -1,12 +1,13 @@
 import React from 'react';
 import { FaPizzaSlice } from 'react-icons/fa';
+import logo from '../../images/logo.png';
 
 export const Header = () => {
   return (
     <header className='header' data-testid='header'>
       <nav>
         <div className='logo'>
-          <img src='' alt='ToDo' />
+          <img src={logo} alt='ToDo' />
         </div>
         <div className='settings'>
           <ul>
