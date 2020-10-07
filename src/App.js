@@ -3,18 +3,18 @@ import { Content } from './components/layout/Content';
 import { Header } from './components/layout/Header';
 import {
   ProjectsProvider,
-  SelectedProjectsProvider,
-} from './context';
+  SelectedProjectProvider,
+} from './contextAPI';
 
 export const App = () => {
   return (
-    <SelectedProjectsProvider>
+    <SelectedProjectProvider>
       <ProjectsProvider>
         <div className='app'>
           <Header />
           <Content />
         </div>
       </ProjectsProvider>
-    </SelectedProjectsProvider>
+    </SelectedProjectProvider>
   );
 };

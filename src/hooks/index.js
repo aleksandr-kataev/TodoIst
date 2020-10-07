@@ -62,8 +62,7 @@ export const useTasks = (userID, selectedProject) => {
 export const useProjects = (userID) => {
   const [projects, setProjects] = useState([]);
   useEffect(() => {
-    db.firestore()
-      .collection('projects')
+    db.collection('projects')
       .where('userId', '==', userID)
       .orderBy('projectId')
       .get()
@@ -80,7 +79,9 @@ export const useProjects = (userID) => {
           setProjects(allProjects);
         }
       });
-  }, []);
+  }, [projects]);
+
+  return { projects, setProjects };
 };
 
 // ftg34v ui
