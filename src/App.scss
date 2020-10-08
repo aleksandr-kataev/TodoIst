@@ -36,6 +36,7 @@ $generic-bg: #db4c3f;
 // Mixins
 
 @mixin box-overlay() {
+  -webkit-box-shadow: $generic-box-shadow;
   box-shadow: $generic-box-shadow;
   position: absolute;
   width: 100%;
@@ -213,6 +214,8 @@ header {
   height: calc(100vh);
   padding-top: 74px;
   position: fixed;
+  overflow-x: hidden;
+  overflow-y: hidden;
   border-right: $generic-border;
   background-color: #fafafa;
 
@@ -224,13 +227,26 @@ header {
     padding-right: 15px;
     padding-left: 10px;
     &:hover .sidebar__project-delete {
-      display: block;
+      display: flex;
     }
   }
 
   &__project {
-    padding: 5px;
+    padding: 5px 0;
     cursor: pointer;
+
+    &-button {
+      padding: 5px 0;
+      padding-left: 10px;
+      padding-right: 15px;
+      width: 100%;
+      display: -webkit-box;
+      display: -ms-flexbox;
+      display: flex;
+      -webkit-box-align: center;
+      -ms-flex-align: center;
+      align-items: center;
+    }
 
     &-delete {
       margin-left: auto;
@@ -289,6 +305,8 @@ header {
     margin-top: 20px;
     margin-bottom: 20px;
     display: flex;
+    display: -webkit-box;
+    display: -ms-flexbox;
     border-bottom: $generic-border;
     padding-left: 10px;
     cursor: pointer;
@@ -299,6 +317,7 @@ header {
     }
 
     svg.hidden-projects {
+      -webkit-transform: rotate(-90deg);
       transform: rotate(-90deg);
     }
 
@@ -317,6 +336,8 @@ header {
       list-style-type: none;
       color: #333;
       display: flex;
+      display: -webkit-box;
+      display: -ms-flexbox;
       cursor: pointer;
       line-height: 1.5;
       font-size: 15px;
@@ -335,6 +356,36 @@ header {
         font-weight: bold;
         background-color: white;
       }
+    }
+  }
+}
+
+.project-delete-modal {
+  position: relative;
+
+  &__inner {
+    @include box-overlay();
+    z-index: 99;
+    width: 200px;
+    padding: 10px;
+    top: 10px;
+    right: 0;
+    background-color: white;
+
+    p {
+      margin-top: 5px;
+      margin-bottom: 5px;
+      line-height: normal;
+      font-weight: normal;
+      font-size: 15px;
+    }
+
+    button {
+      @include bnt('50px');
+    }
+    span {
+      @include cancel();
+      font-weight: normal;
     }
   }
 }

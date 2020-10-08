@@ -43,14 +43,14 @@ export const Project = ({ project }) => {
                 onClick={() => deleteProject(project.docId)}
               >
                 Delete
-                <span
-                  onClick={() => {
-                    setShowConf(!showConf);
-                  }}
-                >
-                  Cancel
-                </span>
               </button>
+              <span
+                onClick={() => {
+                  setShowConf(!showConf);
+                }}
+              >
+                Cancel
+              </span>
             </div>
           </div>
         )}
