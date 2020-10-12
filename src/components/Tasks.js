@@ -7,15 +7,13 @@ import {
   getCollatedTitle,
   collatedTasksExist,
 } from '../util';
-import {
-  useSelectedProjectValue,
-  useProjectsValue,
-} from '../contextAPI/';
+import { useStateValue } from '../contextAPI/StateProvider';
 
 export const Tasks = () => {
-  const { selectedProject } = useSelectedProjectValue();
-  const { projects } = useProjectsValue();
-  const { tasks } = useTasks('ftg34v', selectedProject);
+  const [
+    { projects, tasks, selectedProject },
+    dispatch,
+  ] = useStateValue();
 
   let projectName = '';
 

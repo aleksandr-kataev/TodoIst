@@ -1,25 +1,22 @@
 import React, { useState } from 'react';
 import { FaTrashAlt } from 'react-icons/fa';
-import {
-  useProjectsValue,
-  useSelectedProjectValue,
-} from '../contextAPI';
+import { deleteProjectFromDb } from '../contextAPI/actions';
+import { useStateValue } from '../contextAPI/StateProvider';
 
-import { db } from '../firebase';
-
-export const Project = ({ project }) => {
+const Project = ({ project }) => {
+  const [, dispatch] = useStateValue();
   const [showConf, setShowConf] = useState(false);
-  const { projects, setProjects } = useProjectsValue();
-  const { setSelectedProject } = useSelectedProjectValue();
 
-  const deleteProject = (docId) => {
-    db.collection('projects')
-      .doc(docId)
-      .delete()
-      .then(() => {
-        setProjects([...projects]);
-        setSelectedProject('INBOX');
-      });
+  const deleteProject = (projectId) => {
+    deleteProjectFromDb(projectId);
+    dispatch({
+      type: 'REMOVE_PROJECT',
+      payload: projectId,
+    });
+    dispatch({
+      type: 'SELECT_PROJECT',
+      payload: 'INBOX',
+    });
   };
 
   return (
@@ -40,7 +37,7 @@ export const Project = ({ project }) => {
               <p>Are you sure you want to delete this project?</p>
               <button
                 type='button'
-                onClick={() => deleteProject(project.docId)}
+                onClick={() => deleteProject(project.projectId)}
               >
                 Delete
               </button>
@@ -58,3 +55,5 @@ export const Project = ({ project }) => {
     </>
   );
 };
+
+export default Project;

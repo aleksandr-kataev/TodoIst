@@ -1,14 +1,10 @@
 import React, { useState } from 'react';
-import {
-  useSelectedProjectValue,
-  useProjectsValue,
-} from '../contextAPI';
-import { Project } from './Project';
+import { useStateValue } from '../contextAPI/StateProvider';
+import Project from './Project';
 
-export const Projects = ({ activeValue = null }) => {
+const Projects = ({ activeValue = null }) => {
   const [active, setActive] = useState(activeValue);
-  const { setSelectedProject } = useSelectedProjectValue();
-  const { projects } = useProjectsValue();
+  const [{ projects }, dispatch] = useStateValue();
 
   return (
     projects &&
@@ -31,12 +27,18 @@ export const Projects = ({ activeValue = null }) => {
           aria-label={`Select ${project.name} as the task project`}
           onClick={() => {
             setActive(project.projectId);
-            setSelectedProject(project.projectId);
+            dispatch({
+              type: 'SELECT_PROJECT',
+              payload: project.projectId,
+            });
           }}
           onKeyDown={(e) => {
             if (e.key === 'Enter') {
               setActive(project.projectId);
-              setSelectedProject(project.projectId);
+              dispatch({
+                type: 'SELECT_PROJECT',
+                payload: project.projectId,
+              });
             }
           }}
         >
@@ -46,3 +48,5 @@ export const Projects = ({ activeValue = null }) => {
     ))
   );
 };
+
+export default Projects;
