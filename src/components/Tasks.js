@@ -1,6 +1,5 @@
 import React, { useEffect } from 'react';
 import { Checkbox } from './Checkbox';
-import { useTasks } from '../hooks';
 import { collatedTasks } from '../constants/index';
 import {
   getTitle,
@@ -8,14 +7,30 @@ import {
   collatedTasksExist,
 } from '../util';
 import { useStateValue } from '../contextAPI/StateProvider';
+import { getTasksFromDb } from '../contextAPI/actions';
 
-export const Tasks = () => {
+const Tasks = () => {
   const [
     { projects, tasks, selectedProject },
     dispatch,
   ] = useStateValue();
-
+  const user = {
+    id: 'ftg34v',
+  };
   let projectName = '';
+
+  useEffect(() => {
+    const setTasks = async () => {
+      const res = await getTasksFromDb(user.id, selectedProject);
+      dispatch({
+        type: 'LOAD_TASKS',
+        payload: res,
+      });
+    };
+    setTasks();
+  }, [selectedProject]);
+
+  //maybe you dont need tasks state at all just load when selectyed project changes but then you need to be able to edit changes e.g. complete tasks add task
 
   if (
     projects &&
@@ -35,16 +50,20 @@ export const Tasks = () => {
   });
 
   return (
-    <div className='tasks' data-testid='tasks'>
-      <h2 data-testid='project-name'>{projectName}</h2>
-      <ul className='tasks__list'>
-        {tasks.map((task) => (
-          <li key={`${task.id}`}>
-            <Checkbox id={task.id} taskDesc={task.task} />
-            <span>{task.name}</span>
-          </li>
-        ))}
-      </ul>
-    </div>
+    tasks && (
+      <div className='tasks' data-testid='tasks'>
+        <h2 data-testid='project-name'>{projectName}</h2>
+        <ul className='tasks__list'>
+          {tasks.due.map((task) => (
+            <li key={`${task.taskId}`}>
+              <Checkbox id={task.taskId} taskDesc={task.task} />
+              <span>{task.name}</span>
+            </li>
+          ))}
+        </ul>
+      </div>
+    )
   );
 };
+
+export default Tasks;

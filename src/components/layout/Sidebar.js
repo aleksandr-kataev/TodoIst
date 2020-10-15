@@ -9,19 +9,23 @@ import Projects from '../Projects';
 import { useStateValue } from '../../contextAPI/StateProvider';
 import { AddProject } from './AddProject';
 
-export const Sidebar = () => {
-  const [, dispatch] = useStateValue();
-  const [active, setActive] = useState('inbox');
+const Sidebar = () => {
+  const [{ selectedProject }, dispatch] = useStateValue();
   const [showProjects, setShowProjects] = useState(true);
+
+  const user = {
+    id: 'ftg34v',
+  };
 
   return (
     <div className='sidebar' data-testid='sidebar'>
       <ul className='sidebar__generic'>
         <li
           data-testid='inbox'
-          className={active === 'inbox' ? 'active' : undefined}
-          onClick={() => {
-            setActive('inbox');
+          className={
+            selectedProject === 'INBOX' ? 'active' : undefined
+          }
+          onClick={async () => {
             dispatch({
               type: 'SELECT_PROJECT',
               payload: 'INBOX',
@@ -35,9 +39,10 @@ export const Sidebar = () => {
         </li>
         <li
           data-testid='today'
-          className={active === 'today' ? 'active' : undefined}
-          onClick={() => {
-            setActive('today');
+          className={
+            selectedProject === 'TODAY' ? 'active' : undefined
+          }
+          onClick={async () => {
             dispatch({
               type: 'SELECT_PROJECT',
               payload: 'TODAY',
@@ -51,9 +56,10 @@ export const Sidebar = () => {
         </li>
         <li
           data-testid='next_7'
-          className={active === 'next_7' ? 'active' : undefined}
-          onClick={() => {
-            setActive('next_7');
+          className={
+            selectedProject === 'NEXT_7' ? 'active' : undefined
+          }
+          onClick={async () => {
             dispatch({
               type: 'SELECT_PROJECT',
               payload: 'NEXT_7',
@@ -84,5 +90,7 @@ export const Sidebar = () => {
     </div>
   );
 };
+
+export default Sidebar;
 
 // Next 7 days dooesnt work properly

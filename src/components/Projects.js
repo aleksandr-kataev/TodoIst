@@ -1,10 +1,13 @@
 import React, { useState } from 'react';
 import { useStateValue } from '../contextAPI/StateProvider';
 import Project from './Project';
+import { getTasksFromDb } from '../contextAPI/actions';
 
-const Projects = ({ activeValue = null }) => {
-  const [active, setActive] = useState(activeValue);
-  const [{ projects }, dispatch] = useStateValue();
+const Projects = () => {
+  const [
+    { projects, tasks, selectedProject },
+    dispatch,
+  ] = useStateValue();
 
   return (
     projects &&
@@ -14,7 +17,7 @@ const Projects = ({ activeValue = null }) => {
         data-testid='project-action-parent'
         data-doc-id={project.docId}
         className={
-          active === project.projectId
+          selectedProject === project.projectId
             ? 'active sidebar__project'
             : 'sidebar__project'
         }
@@ -25,16 +28,14 @@ const Projects = ({ activeValue = null }) => {
           className='sidebar__project-button'
           data-testid='project-action'
           aria-label={`Select ${project.name} as the task project`}
-          onClick={() => {
-            setActive(project.projectId);
+          onClick={async () => {
             dispatch({
               type: 'SELECT_PROJECT',
               payload: project.projectId,
             });
           }}
-          onKeyDown={(e) => {
+          onKeyDown={async (e) => {
             if (e.key === 'Enter') {
-              setActive(project.projectId);
               dispatch({
                 type: 'SELECT_PROJECT',
                 payload: project.projectId,

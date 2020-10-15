@@ -1,7 +1,7 @@
 /* eslint-disable no-case-declarations */
 export const initialState = {
-  projects: [],
-  tasks: [],
+  projects: null,
+  tasks: null,
   selectedProject: 'INBOX',
   user: null,
 };

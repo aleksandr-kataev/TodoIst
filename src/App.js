@@ -8,7 +8,7 @@ import {
 import { useStateValue } from './contextAPI/StateProvider';
 
 const App = () => {
-  const [selectedProject, dispatch] = useStateValue();
+  const [{ selectedProject }, dispatch] = useStateValue();
   const user = {
     id: 'ftg34v',
   };
@@ -19,7 +19,6 @@ const App = () => {
         type: 'LOAD_PROJECTS',
         payload: projectsRes,
       });
-
       const tasksRes = await getTasksFromDb(user.id, selectedProject);
       dispatch({
         type: 'LOAD_TASKS',
