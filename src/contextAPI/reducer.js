@@ -23,6 +23,11 @@ const reducer = (state, action) => {
         ...state,
         selectedProject: action.payload,
       };
+    case 'ADD_PROJECT':
+      return {
+        ...state,
+        projects: [...state.projects, action.payload],
+      };
     default:
       return state;
   }
