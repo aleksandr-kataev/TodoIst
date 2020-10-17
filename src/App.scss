@@ -384,7 +384,7 @@ header {
     }
 
     button {
-      @include bnt('50px');
+      @include bnt(50px);
     }
     span {
       @include cancel();
@@ -458,4 +458,52 @@ header {
       }
     }
   }
+}
+
+//Add project
+
+.add-project {
+  padding-left: 13px;
+  padding-right: 20px;
+  margin-top: 20px;
+
+  &__input {
+    margin-bottom: 20px;
+  }
+
+  &__name {
+    width: 100%;
+    border: 1px solid #ddd;
+    background-color: white !important;
+    border-radius: 3px;
+    height: 35px;
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+
+  &__submit {
+    @include bnt(100px);
+  }
+
+  &__cancel {
+    @include cancel();
+  }
+}
+
+// add task
+
+.add-task {
+}
+
+.add-task__plus,
+.add-project__plus {
+  color: #dd4b39;
+  font-size: 18px;
+}
+.add-task__text,
+.add-project__text {
+  display: inline-block;
+  color: #545454;
+  font-size: 14px;
+  margin-left: 15px;
 }
