@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
-import { db } from '../../firebase';
-import { generatePushId } from '../../util';
-import { useStateValue } from '../../contextAPI/StateProvider';
+import { v4 as uuidv4 } from 'uuid';
+import { db } from '../firebase';
+import { useStateValue } from '../contextAPI/StateProvider';
 
 const AddProject = () => {
   const [show, setShow] = useState(false);
   const [projectName, setProjectName] = useState('');
-  const projectId = generatePushId();
+  const projectId = uuidv4();
   const [{ selectedProject }, dispatch] = useStateValue();
 
   const user = {

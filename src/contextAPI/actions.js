@@ -37,23 +37,23 @@ export const getTasksFromDb = async (userId, selectedProject) => {
 
   const separatedTasks = {
     due: [],
-    archived: [],
+    completed: [],
   };
 
   if (selectedProject === 'NEXT_7') {
     separatedTasks.due = allTasks.filter(
       (task) =>
         moment(task.date, 'DD-MM-YYYY').diff(moment(), 'days') <= 7 &&
-        task.archived !== true,
+        task.completed !== true,
     );
   } else {
     separatedTasks.due = allTasks.filter(
-      (task) => task.archived !== true,
+      (task) => task.completed !== true,
     );
   }
 
-  separatedTasks.archived = allTasks.filter(
-    (task) => task.archived !== false,
+  separatedTasks.completed = allTasks.filter(
+    (task) => task.completed !== false,
   );
 
   return separatedTasks;

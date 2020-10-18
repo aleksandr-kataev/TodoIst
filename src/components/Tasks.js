@@ -6,6 +6,7 @@ import {
   getCollatedTitle,
   collatedTasksExist,
 } from '../util';
+import AddTask from './AddTask';
 import { useStateValue } from '../contextAPI/StateProvider';
 import { getTasksFromDb } from '../contextAPI/actions';
 
@@ -29,8 +30,6 @@ const Tasks = () => {
     };
     setTasks();
   }, [selectedProject]);
-
-  //maybe you dont need tasks state at all just load when selectyed project changes but then you need to be able to edit changes e.g. complete tasks add task
 
   if (
     projects &&
@@ -61,6 +60,7 @@ const Tasks = () => {
             </li>
           ))}
         </ul>
+        <AddTask />
       </div>
     )
   );

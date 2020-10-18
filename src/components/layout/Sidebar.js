@@ -7,7 +7,7 @@ import {
 } from 'react-icons/fa';
 import Projects from '../Projects';
 import { useStateValue } from '../../contextAPI/StateProvider';
-import AddProject from './AddProject';
+import AddProject from '../AddProject';
 
 const Sidebar = () => {
   const [{ selectedProject }, dispatch] = useStateValue();
