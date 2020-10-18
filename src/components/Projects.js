@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { useStateValue } from '../contextAPI/StateProvider';
 import Project from './Project';
-import { getTasksFromDb } from '../contextAPI/actions';
 
 const Projects = () => {
   const [

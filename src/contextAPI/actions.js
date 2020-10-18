@@ -2,7 +2,7 @@ import moment from 'moment';
 import { db } from '../firebase';
 import { collatedTasksExist } from '../util';
 
-export const getProjectsFromDb = async (userID) => {
+export const getProjectsFromDb = async (userID, dispatch) => {
   const ref = db
     .collection('projects')
     .where('userId', '==', userID)
@@ -13,10 +13,17 @@ export const getProjectsFromDb = async (userID) => {
   res.forEach((doc) => {
     projects.push(doc.data());
   });
-  return projects;
+  dispatch({
+    type: 'LOAD_PROJECTS',
+    payload: projects,
+  });
 };
 
-export const getTasksFromDb = async (userId, selectedProject) => {
+export const getTasksFromDb = async (
+  userId,
+  selectedProject,
+  dispatch,
+) => {
   let ref = db.collection('tasks').where('userId', '==', userId);
 
   if (selectedProject && !collatedTasksExist(selectedProject)) {
@@ -56,7 +63,10 @@ export const getTasksFromDb = async (userId, selectedProject) => {
     (task) => task.completed !== false,
   );
 
-  return separatedTasks;
+  dispatch({
+    type: 'LOAD_TASKS',
+    payload: separatedTasks,
+  });
 };
 
 export const deleteProjectFromDb = (docId) => {

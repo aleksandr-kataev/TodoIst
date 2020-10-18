@@ -22,11 +22,7 @@ const Tasks = () => {
 
   useEffect(() => {
     const setTasks = async () => {
-      const res = await getTasksFromDb(user.id, selectedProject);
-      dispatch({
-        type: 'LOAD_TASKS',
-        payload: res,
-      });
+      getTasksFromDb(user.id, selectedProject, dispatch);
     };
     setTasks();
   }, [selectedProject]);
@@ -47,7 +43,6 @@ const Tasks = () => {
   useEffect(() => {
     document.title = `${projectName}: Todoist`;
   });
-
   return (
     tasks && (
       <div className='tasks' data-testid='tasks'>
@@ -56,7 +51,7 @@ const Tasks = () => {
           {tasks.due.map((task) => (
             <li key={`${task.taskId}`}>
               <Checkbox id={task.taskId} taskDesc={task.task} />
-              <span>{task.name}</span>
+              <span>{task.task}</span>
             </li>
           ))}
         </ul>

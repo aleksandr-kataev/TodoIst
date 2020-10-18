@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Content } from './components/layout/Content';
 import Header from './components/layout/Header';
 import {
@@ -7,34 +7,31 @@ import {
 } from './contextAPI/actions';
 import { useStateValue } from './contextAPI/StateProvider';
 
-const App = () => {
+const App = ({ darkModeDefault = false }) => {
   const [{ selectedProject }, dispatch] = useStateValue();
+
+  const [darkMode, setDarkMode] = useState(darkModeDefault);
+
   const user = {
     id: 'ftg34v',
   };
   useEffect(() => {
     const loadData = async () => {
-      const projectsRes = await getProjectsFromDb(user.id);
-      dispatch({
-        type: 'LOAD_PROJECTS',
-        payload: projectsRes,
-      });
-      const tasksRes = await getTasksFromDb(user.id, selectedProject);
-      dispatch({
-        type: 'LOAD_TASKS',
-        payload: tasksRes,
-      });
+      getProjectsFromDb(user.id, dispatch);
+      getTasksFromDb(user.id, selectedProject, dispatch);
       // auth
     };
-
     loadData();
-  }, [dispatch]);
+  }, []);
 
   return (
-    <div className='app'>
-      <Header />
+    <main
+      data-testid='application'
+      className={darkMode ? 'darkmode' : undefined}
+    >
+      <Header darkMode={darkMode} setDarkMode={setDarkMode} />
       <Content />
-    </div>
+    </main>
   );
 };
 

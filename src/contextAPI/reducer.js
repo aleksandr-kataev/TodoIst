@@ -6,7 +6,7 @@ export const initialState = {
   user: null,
 };
 
-const reducer = (state, action) => {
+const reducer = (state = initialState, action) => {
   switch (action.type) {
     case 'LOAD_PROJECTS':
       return {

@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { FaRegListAlt, FaRegCalendarAlt } from 'react-icons/fa';
-import { moment } from 'moment';
 import { v4 as uuidv4 } from 'uuid';
 import { useStateValue } from '../contextAPI/StateProvider';
 import ProjectOverlay from './ProjectOverlay';
@@ -24,7 +23,7 @@ const AddTask = ({
   const [showProjectOverlay, setShowProjectOverlay] = useState(false);
   const [showTaskDate, setShowTaskDate] = useState(false);
   const [{ selectedProject }, dispatch] = useStateValue();
-  console.log(selectedProject);
+  console.log(1);
 
   const addTaskToDb = () => {
     const projectId = project || selectedProject;
@@ -113,7 +112,11 @@ const AddTask = ({
             type='button'
             className='add-task__submit'
             data-testid='add-task'
-            onClick={() => addTaskToDb()}
+            onClick={() =>
+              showQuickAddTask
+                ? addTaskToDb() && setShowQuickAddTask(false)
+                : addTaskToDb()
+            }
           >
             Add Task
           </button>
