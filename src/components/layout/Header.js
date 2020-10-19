@@ -38,6 +38,7 @@ const Header = ({ darkMode, setDarkMode }) => {
         </div>
       </nav>
       <AddTask
+        quickAdd
         showAddTaskMain={false}
         shouldShowMain={shouldShowMain}
         showQuickAddTask={showQuickAddTask}

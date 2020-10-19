@@ -7,7 +7,7 @@ const AddProject = () => {
   const [show, setShow] = useState(false);
   const [projectName, setProjectName] = useState('');
   const projectId = uuidv4();
-  const [{ selectedProject }, dispatch] = useStateValue();
+  const [, dispatch] = useStateValue();
 
   const user = {
     id: 'ftg34v',

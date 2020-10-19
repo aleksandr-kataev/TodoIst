@@ -55,7 +55,7 @@ const Tasks = () => {
             </li>
           ))}
         </ul>
-        <AddTask />
+        <AddTask quickAdd={false} />
       </div>
     )
   );

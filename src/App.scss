@@ -35,13 +35,13 @@ $generic-bg: #db4c3f;
 
 // Mixins
 
-@mixin box-overlay() {
+@mixin box-overlay($margin) {
   -webkit-box-shadow: $generic-box-shadow;
   box-shadow: $generic-box-shadow;
   position: absolute;
   width: 100%;
   z-index: 1;
-  top: 85px;
+  top: $margin;
   border-radius: 3px;
 }
 
@@ -206,20 +206,27 @@ header {
   }
 }
 
+.main {
+  margin-left: 15%;
+  @include mq(900px) {
+    margin-left: 0;
+  }
+}
+
 // Sidebar
 
 .sidebar {
   @include no-select();
   width: 266px;
   height: calc(100vh);
-  padding-top: 74px;
+  padding-top: 60px;
   position: fixed;
   overflow-x: hidden;
   overflow-y: hidden;
   border-right: $generic-border;
   background-color: #fafafa;
 
-  @include mq('900px') {
+  @include mq(900px) {
     display: none;
   }
 
@@ -367,11 +374,10 @@ header {
   position: relative;
 
   &__inner {
-    @include box-overlay();
+    @include box-overlay(20px);
     z-index: 99;
     width: 200px;
     padding: 10px;
-    top: 10px;
     right: 0;
     background-color: white;
 
@@ -384,7 +390,7 @@ header {
     }
 
     button {
-      @include bnt(50px);
+      @include bnt('50px');
     }
     span {
       @include cancel();
@@ -415,7 +421,7 @@ header {
   padding-top: 80px;
   padding-bottom: 84px;
 
-  @include mq('900px') {
+  @include mq(900px) {
     margin-left: 0;
     width: auto;
   }
@@ -507,7 +513,7 @@ header {
     height: calc(100vh);
 
     .add-task__main {
-      @include mq('900px') {
+      @include mq(900px) {
         width: 90%;
       }
       overflow: visible;
@@ -602,7 +608,26 @@ header {
 //task date
 
 .task-date {
-  @include box-overlay();
+  @include box-overlay(80px);
+  background-color: #fff;
+  width: 200px;
+  right: 0;
+
+  &__list li {
+    @include task-item();
+
+    span:first-of-type {
+      margin-right: 10px;
+    }
+
+    svg {
+      fill: grey;
+    }
+  }
+}
+
+.task-date-quick-add {
+  @include box-overlay(145px);
   background-color: #fff;
   width: 200px;
   right: 0;
@@ -621,8 +646,18 @@ header {
 }
 
 .project-overlay {
-  @include box-overlay();
+  @include box-overlay(85px);
   background-color: white;
+
+  &__list li {
+    @include task-item();
+  }
+}
+
+.project-overlay-quick-add {
+  @include box-overlay(150px);
+  background-color: white;
+  width: 90%;
 
   &__list li {
     @include task-item();

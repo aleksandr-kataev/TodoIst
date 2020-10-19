@@ -6,9 +6,17 @@ import {
   FaSun,
 } from 'react-icons/fa';
 
-const TaskDate = ({ setTaskDate, showTaskDate, setShowTaskDate }) =>
+const TaskDate = ({
+  quickAdd,
+  setTaskDate,
+  showTaskDate,
+  setShowTaskDate,
+}) =>
   showTaskDate && (
-    <div className='task-date' data-testid='task-date-overlay'>
+    <div
+      className={quickAdd ? 'task-date-quick-add' : 'task-date'}
+      data-testid='task-date-overlay'
+    >
       <ul className='task-date__list'>
         <li
           onClick={() => {

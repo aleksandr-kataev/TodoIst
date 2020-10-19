@@ -2,6 +2,7 @@ import React from 'react';
 import { useStateValue } from '../contextAPI/StateProvider';
 
 const ProjectOverlay = ({
+  quickAdd,
   setProject,
   showProjectOverlay,
   setShowProjectOverlay,
@@ -10,7 +11,12 @@ const ProjectOverlay = ({
   return (
     projects &&
     showProjectOverlay && (
-      <div className='project-overlay' data-testid='project-overlay'>
+      <div
+        className={
+          quickAdd ? 'project-overlay-quick-add' : 'project-overlay'
+        }
+        data-testid='project-overlay'
+      >
         <ul className='project-overlay__list'>
           {projects.map((project) => (
             <li

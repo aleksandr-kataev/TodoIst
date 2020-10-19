@@ -1,12 +1,14 @@
 import React, { useState } from 'react';
 import { FaRegListAlt, FaRegCalendarAlt } from 'react-icons/fa';
 import { v4 as uuidv4 } from 'uuid';
+import { moment } from 'moment';
 import { useStateValue } from '../contextAPI/StateProvider';
 import ProjectOverlay from './ProjectOverlay';
 import TaskDate from './TaskDate';
 import { db } from '../firebase';
 
 const AddTask = ({
+  quickAdd,
   showAddTaskMain = true,
   showShouldMain = false,
   showQuickAddTask,
@@ -16,25 +18,27 @@ const AddTask = ({
     id: 'ftg34v',
   };
   const [task, setTask] = useState('');
-  const [description, setDescription] = useState('');
   const [taskDate, setTaskDate] = useState('');
   const [project, setProject] = useState('');
   const [showMain, setShowMain] = useState(showShouldMain);
   const [showProjectOverlay, setShowProjectOverlay] = useState(false);
   const [showTaskDate, setShowTaskDate] = useState(false);
   const [{ selectedProject }, dispatch] = useStateValue();
-  console.log(1);
 
   const addTaskToDb = () => {
     const projectId = project || selectedProject;
-    //date
 
     let collatedDate = '';
 
+    if (projectId === 'TODAY') {
+      collatedDate = moment().format('DD/MM/YYYY');
+    } else if (projectId === 'NEXT_7') {
+      collatedDate = moment().add(7, 'days').format('DD/MM/YYYY');
+    }
+
     const taskObj = {
       completed: false,
-      date: selectedProject === 'INBOX' ? '' : collatedDate,
-      description,
+      date: collatedDate || taskDate,
       task,
       projectId,
       taskId: uuidv4(),
@@ -92,11 +96,15 @@ const AddTask = ({
             </>
           )}
           <ProjectOverlay
+            quickAdd={quickAdd}
+            showQuickAddTask
             setProject={setProject}
             showProjectOverlay={showProjectOverlay}
             setShowProjectOverlay={setShowProjectOverlay}
           />
           <TaskDate
+            quickAdd={quickAdd}
+            showQuickAddTask
             setTaskDate={setTaskDate}
             showTaskDate={showTaskDate}
             setShowTaskDate={setShowTaskDate}
@@ -135,14 +143,20 @@ const AddTask = ({
           <span
             className='add-task__project'
             data-testid='show-project-overlay'
-            onClick={() => setShowProjectOverlay(!showProjectOverlay)}
+            onClick={() => {
+              setShowTaskDate(false);
+              setShowProjectOverlay(!showProjectOverlay);
+            }}
           >
             <FaRegListAlt />
           </span>
           <span
             className='add-task__date'
             data-testid='show-task-date-overlay'
-            onClick={() => setShowTaskDate(!showTaskDate)}
+            onClick={() => {
+              setShowProjectOverlay(false);
+              setShowTaskDate(!showTaskDate);
+            }}
           >
             <FaRegCalendarAlt />
           </span>
