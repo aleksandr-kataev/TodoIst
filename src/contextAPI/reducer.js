@@ -36,6 +36,11 @@ const reducer = (state = initialState, action) => {
           due: [...state.tasks.due, action.payload],
         },
       };
+    case 'SET_USER':
+      return {
+        ...state,
+        user: action.payload,
+      };
     default:
       return state;
   }
