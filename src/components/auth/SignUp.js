@@ -1,7 +1,10 @@
 import React, { useState, useRef } from 'react';
-import { auth } from '../../firebase';
+import { useHistory } from 'react-router-dom';
+import { useAuth } from '../../contextAPI/AuthContext';
 
 const SignUp = () => {
+  const history = useHistory();
+  const { signup } = useAuth();
   const emailRef = useRef();
   const passRef = useRef();
   const passConfRef = useRef();
@@ -17,18 +20,51 @@ const SignUp = () => {
     try {
       setError('');
       setLoading(true);
-      await auth.createUserWithEmailAndPassword(
-        emailRef.current.value,
-        passRef.current.value,
-      );
+      await signup(emailRef.current.value, passRef.current.value);
+      history.push('/');
     } catch (err) {
       setError('Failed to create an account');
     }
     setLoading(false);
+    return null;
   };
+
   return (
-    <div className='hello'>
-      <form onSubmit={handleSignUp}></form>
+    <div className='auth'>
+      <div className='auth__cnt'>
+        <h1>Create an account</h1>
+        <form>
+          <p className='auth__label'>E-mail</p>
+          <input type='text' ref={emailRef} />
+
+          <p className='auth__label'>Password</p>
+          <input type='password' ref={passRef} />
+
+          <p className='auth__label'>Confirm password</p>
+          <input type='password' ref={passConfRef} />
+
+          <p className='auth__error'>{error}</p>
+
+          <button
+            type='submit'
+            className='auth__action-button'
+            onClick={handleSignUp}
+            disabled={load}
+          >
+            Submit
+          </button>
+
+          <button
+            type='button'
+            className='auth__redirect-button'
+            onClick={() => history.push('/login')}
+          >
+            Sign in into your ToDoist account
+          </button>
+        </form>
+      </div>
     </div>
   );
 };
+
+export default SignUp;
