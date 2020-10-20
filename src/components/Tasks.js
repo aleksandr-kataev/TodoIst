@@ -8,6 +8,7 @@ import {
 } from '../util';
 import AddTask from './AddTask';
 import { useStateValue } from '../contextAPI/StateProvider';
+import { useAuth } from '../contextAPI/AuthContext';
 import { getTasksFromDb } from '../contextAPI/actions';
 
 const Tasks = () => {
@@ -15,14 +16,12 @@ const Tasks = () => {
     { projects, tasks, selectedProject },
     dispatch,
   ] = useStateValue();
-  const user = {
-    id: 'ftg34v',
-  };
+  const { currentUser } = useAuth();
   let projectName = '';
 
   useEffect(() => {
     const setTasks = async () => {
-      getTasksFromDb(user.id, selectedProject, dispatch);
+      getTasksFromDb(currentUser.uid, selectedProject, dispatch);
     };
     setTasks();
   }, [selectedProject]);

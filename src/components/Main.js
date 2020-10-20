@@ -5,16 +5,18 @@ import {
   getProjectsFromDb,
   getTasksFromDb,
 } from '../contextAPI/actions';
+import { useAuth } from '../contextAPI/AuthContext';
 import { useStateValue } from '../contextAPI/StateProvider';
 
 const Main = ({ darkModeDefault = false }) => {
-  const [{ selectedProject, user }, dispatch] = useStateValue();
+  const { currentUser } = useAuth();
+  const [{ selectedProject }, dispatch] = useStateValue();
   const [darkMode, setDarkMode] = useState(darkModeDefault);
 
   useEffect(() => {
     const loadData = async () => {
-      getProjectsFromDb(user.id, dispatch);
-      getTasksFromDb(user.id, selectedProject, dispatch);
+      getProjectsFromDb(currentUser.uid, dispatch);
+      getTasksFromDb(currentUser.uid, selectedProject, dispatch);
     };
     loadData();
   }, []);

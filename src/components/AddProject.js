@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 import { db } from '../firebase';
 import { useStateValue } from '../contextAPI/StateProvider';
+import { useAuth } from '../contextAPI/AuthContext';
 
 const AddProject = () => {
   const [show, setShow] = useState(false);
@@ -9,16 +10,14 @@ const AddProject = () => {
   const projectId = uuidv4();
   const [, dispatch] = useStateValue();
 
-  const user = {
-    id: 'ftg34v',
-  };
+  const { currentUser } = useAuth();
 
   const addProject = () => {
     //validation for project name
     const project = {
       projectId,
       name: projectName,
-      userId: user.id,
+      userId: currentUser.uid,
     };
 
     db.collection('projects')

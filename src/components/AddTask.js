@@ -3,6 +3,7 @@ import { FaRegListAlt, FaRegCalendarAlt } from 'react-icons/fa';
 import { v4 as uuidv4 } from 'uuid';
 import { moment } from 'moment';
 import { useStateValue } from '../contextAPI/StateProvider';
+import { useAuth } from '../contextAPI/AuthContext';
 import ProjectOverlay from './ProjectOverlay';
 import TaskDate from './TaskDate';
 import { db } from '../firebase';
@@ -14,9 +15,7 @@ const AddTask = ({
   showQuickAddTask,
   setShowQuickAddTask,
 }) => {
-  const user = {
-    id: 'ftg34v',
-  };
+  const { currentUser } = useAuth();
   const [task, setTask] = useState('');
   const [taskDate, setTaskDate] = useState('');
   const [project, setProject] = useState('');
@@ -42,7 +41,7 @@ const AddTask = ({
       task,
       projectId,
       taskId: uuidv4(),
-      userId: user.id,
+      userId: currentUser.uid,
     };
     return (
       task &&

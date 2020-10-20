@@ -1,11 +1,27 @@
 import React, { useState } from 'react';
 import { FaPizzaSlice } from 'react-icons/fa';
+import { useHistory } from 'react-router-dom';
+import { useAuth } from '../../contextAPI/AuthContext';
 import logo from '../../images/logo.png';
 import AddTask from '../AddTask';
 
 const Header = ({ darkMode, setDarkMode }) => {
   const [shouldShowMain, setShouldShowMain] = useState(false);
   const [showQuickAddTask, setShowQuickAddTask] = useState(false);
+  const [error, setError] = useState('');
+  const { currentUser, logout } = useAuth();
+  const history = useHistory();
+
+  const handleLogout = async () => {
+    setError('');
+
+    try {
+      await logout();
+      history.push('/login');
+    } catch (err) {
+      setError('Failed to log out');
+    }
+  };
   return (
     <header className='header' data-testid='header'>
       <nav>
@@ -34,6 +50,7 @@ const Header = ({ darkMode, setDarkMode }) => {
             >
               <FaPizzaSlice />
             </li>
+            <li onClick={handleLogout}>Logout</li>
           </ul>
         </div>
       </nav>

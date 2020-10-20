@@ -5,6 +5,7 @@ import {
   FaRegCalendarAlt,
   FaRegCalendar,
 } from 'react-icons/fa';
+
 import Projects from '../Projects';
 import { useStateValue } from '../../contextAPI/StateProvider';
 import AddProject from '../AddProject';
@@ -12,10 +13,6 @@ import AddProject from '../AddProject';
 const Sidebar = () => {
   const [{ selectedProject }, dispatch] = useStateValue();
   const [showProjects, setShowProjects] = useState(true);
-
-  const user = {
-    id: 'ftg34v',
-  };
 
   return (
     <div className='sidebar' data-testid='sidebar'>
