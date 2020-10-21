@@ -29,10 +29,10 @@ const Login = () => {
         <h1>Sign in</h1>
         <form>
           <p className='auth__label'>E-mail</p>
-          <input type='text' ref={emailRef} />
+          <input placeholder='Email' type='text' ref={emailRef} />
 
           <p className='auth__label'>Password</p>
-          <input type='password' ref={passRef} />
+          <input placeholder='Password' type='password' ref={passRef} />
 
           <p className='auth__error'>{error}</p>
 

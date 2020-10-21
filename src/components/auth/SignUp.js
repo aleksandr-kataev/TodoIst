@@ -35,13 +35,21 @@ const SignUp = () => {
         <h1>Create an account</h1>
         <form>
           <p className='auth__label'>E-mail</p>
-          <input type='text' ref={emailRef} />
+          <input placeholder='Email' type='text' ref={emailRef} />
 
           <p className='auth__label'>Password</p>
-          <input type='password' ref={passRef} />
+          <input
+            placeholder='Password'
+            type='password'
+            ref={passRef}
+          />
 
           <p className='auth__label'>Confirm password</p>
-          <input type='password' ref={passConfRef} />
+          <input
+            placeholder='Confirm Password'
+            type='password'
+            ref={passConfRef}
+          />
 
           <p className='auth__error'>{error}</p>
 
