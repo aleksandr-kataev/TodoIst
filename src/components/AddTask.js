@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { FaRegListAlt, FaRegCalendarAlt } from 'react-icons/fa';
 import { v4 as uuidv4 } from 'uuid';
-import { moment } from 'moment';
+import moment from 'moment';
 import { useStateValue } from '../contextAPI/StateProvider';
 import { useAuth } from '../contextAPI/AuthContext';
 import ProjectOverlay from './ProjectOverlay';
@@ -25,13 +25,17 @@ const AddTask = ({
   const [{ selectedProject }, dispatch] = useStateValue();
 
   const addTaskToDb = () => {
-    const projectId = project || selectedProject;
+    let projectId = project || selectedProject;
+
+    if (projectId === 'TODAY' || projectId === 'NEXT_7') {
+      projectId = 'INBOX';
+    }
 
     let collatedDate = '';
 
-    if (projectId === 'TODAY') {
+    if (selectedProject === 'TODAY') {
       collatedDate = moment().format('DD/MM/YYYY');
-    } else if (projectId === 'NEXT_7') {
+    } else if (selectedProject === 'NEXT_7') {
       collatedDate = moment().add(7, 'days').format('DD/MM/YYYY');
     }
 

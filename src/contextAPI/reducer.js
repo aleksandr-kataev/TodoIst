@@ -36,6 +36,22 @@ const reducer = (state = initialState, action) => {
           due: [...state.tasks.due, action.payload],
         },
       };
+
+    case 'COMPLETE_TASK':
+      return {
+        ...state,
+        tasks: {
+          due: state.tasks.due.filter(
+            (task) => task.taskId !== action.payload,
+          ),
+          completed: [
+            ...state.tasks.completed,
+            state.tasks.due.find(
+              (task) => task.taskId === action.payload,
+            ),
+          ],
+        },
+      };
     case 'SET_USER':
       return {
         ...state,

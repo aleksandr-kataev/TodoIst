@@ -49,7 +49,7 @@ const Tasks = () => {
         <ul className='tasks__list'>
           {tasks.due.map((task) => (
             <li key={`${task.taskId}`}>
-              <Checkbox id={task.taskId} taskDesc={task.task} />
+              <Checkbox id={task.id} taskId={task.taskId} />
               <span>{task.task}</span>
             </li>
           ))}

@@ -39,7 +39,10 @@ export const getTasksFromDb = async (
   const allTasks = [];
 
   res.forEach((doc) => {
-    allTasks.push(doc.data());
+    allTasks.push({
+      id: doc.id,
+      ...doc.data(),
+    });
   });
 
   const separatedTasks = {
