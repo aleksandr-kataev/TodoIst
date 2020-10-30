@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { FaPizzaSlice } from 'react-icons/fa';
+import { FaFillDrip } from 'react-icons/fa';
 import { useHistory } from 'react-router-dom';
 import { useAuth } from '../../contextAPI/AuthContext';
 import logo from '../../images/logo.png';
@@ -8,19 +8,13 @@ import AddTask from '../AddTask';
 const Header = ({ darkMode, setDarkMode }) => {
   const [shouldShowMain, setShouldShowMain] = useState(false);
   const [showQuickAddTask, setShowQuickAddTask] = useState(false);
-  const [error, setError] = useState('');
-  const { currentUser, logout } = useAuth();
+
+  const { logout } = useAuth();
   const history = useHistory();
 
   const handleLogout = async () => {
-    setError('');
-
-    try {
-      await logout();
-      history.push('/login');
-    } catch (err) {
-      setError('Failed to log out');
-    }
+    await logout();
+    history.push('/login');
   };
   return (
     <header className='header' data-testid='header'>
@@ -48,9 +42,11 @@ const Header = ({ darkMode, setDarkMode }) => {
                 setDarkMode(!darkMode);
               }}
             >
-              <FaPizzaSlice />
+              <FaFillDrip />
             </li>
-            <li onClick={handleLogout}>Logout</li>
+            <li className='settings__logout' onClick={handleLogout}>
+              Logout
+            </li>
           </ul>
         </div>
       </nav>

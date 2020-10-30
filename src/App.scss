@@ -123,6 +123,21 @@ $generic-bg: #db4c3f;
     background-color: #282828;
     border-color: transparent;
   }
+  .add-task__plus,
+  .add-project__plus {
+    color: black;
+  }
+  .add-task,
+  .add-project {
+    &__submit {
+      background-color: #282828;
+    }
+  }
+  .project-delete-modal {
+    button {
+      background-color: #282828;
+    }
+  }
 }
 
 // Header
@@ -195,10 +210,12 @@ header {
             margin-right: 15px;
             font-size: 30px;
           }
-
-          &.settings__dark-mode svg {
-            width: 20px;
-            height: 20px;
+          &.settings__darkmode {
+            margin-right: 15px;
+          }
+          &.settings__logout {
+            width: 60px;
+            height: 30px;
           }
         }
       }
