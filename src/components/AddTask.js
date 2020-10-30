@@ -61,6 +61,17 @@ const AddTask = ({
         })
     );
   };
+
+  const handleAdd = () => {
+    setTask('');
+    setTaskDate('');
+    if (showQuickAddTask) {
+      addTaskToDb();
+      setShowQuickAddTask(false);
+    } else {
+      addTaskToDb();
+    }
+  };
   return (
     <div
       className={
@@ -91,6 +102,8 @@ const AddTask = ({
                     setShowMain(false);
                     setShowProjectOverlay(false);
                     setShowQuickAddTask(false);
+                    setTask('');
+                    setTaskDate('');
                   }}
                 >
                   X
@@ -123,11 +136,7 @@ const AddTask = ({
             type='button'
             className='add-task__submit'
             data-testid='add-task'
-            onClick={() =>
-              showQuickAddTask
-                ? addTaskToDb() && setShowQuickAddTask(false)
-                : addTaskToDb()
-            }
+            onClick={handleAdd}
           >
             Add Task
           </button>
@@ -138,6 +147,8 @@ const AddTask = ({
               onClick={() => {
                 setShowMain(false);
                 setShowProjectOverlay(false);
+                setTask('');
+                setTaskDate('');
               }}
             >
               Cancel
@@ -149,6 +160,8 @@ const AddTask = ({
             onClick={() => {
               setShowTaskDate(false);
               setShowProjectOverlay(!showProjectOverlay);
+              setTask('');
+              setTaskDate('');
             }}
           >
             <FaRegListAlt />
