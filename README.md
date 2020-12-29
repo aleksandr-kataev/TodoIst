@@ -1,4 +1,4 @@
-## Amazon Clone
+## TodoIst clone
 
 ![alt text](https://i.imgur.com/wiWv7nX.png)
 
