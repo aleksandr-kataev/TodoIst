@@ -67,7 +67,7 @@ const SignUp = () => {
             className='auth__redirect-button'
             onClick={() => history.push('/login')}
           >
-            Sign in into your ToDoist account
+            Sign in into your ToDoIst account
           </button>
         </form>
       </div>
