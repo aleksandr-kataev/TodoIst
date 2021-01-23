@@ -19,40 +19,76 @@ const TaskDate = ({
     >
       <ul className='task-date__list'>
         <li
-          onClick={() => {
-            setShowTaskDate(false);
-            setTaskDate(moment().format('DD/MM/YYYY'));
-          }}
           data-testid='task-date-overlay'
         >
-          <span>
-            <FaSpaceShuttle />
-          </span>
-          <span>Today</span>
+          <div
+            onClick={() => {
+              setShowTaskDate(false);
+              setTaskDate(moment().format('DD/MM/YYYY'));
+            }}
+            onKeyDown={(e) => {
+              if (e.key === 'Enter') {
+                setShowTaskDate(false);
+                setTaskDate(moment().format('DD/MM/YYYY'));
+              }
+            }}
+            aria-label='Select today as due date'
+            tabIndex={0}
+            role='button'
+          >
+            <span>
+              <FaSpaceShuttle />
+            </span>
+            <span>Today</span>
+          </div>
         </li>
         <li
-          onClick={() => {
-            setShowTaskDate(false);
-            setTaskDate(moment().add(1, 'day').format('DD/MM/YYYY'));
-          }}
           data-testid='task-date-tomorrow'
         >
-          <span>
-            <FaSun />
-          </span>
-          <span>Tomorrow</span>
+          <div
+            onClick={() => {
+              setShowTaskDate(false);
+              setTaskDate(moment().add(1, 'day').format('DD/MM/YYYY'));
+            }}
+            onKeyDown={(e) => {
+              if (e.key === 'Enter') {
+                setShowTaskDate(false);
+                setTaskDate(moment().add(1, 'day').format('DD/MM/YYYY'));
+              }
+            }}
+            tabIndex={0}
+            aria-label='Select tomorrow as due date'
+            role='button'
+          >
+            <span>
+              <FaSun />
+            </span>
+            <span>Tomorrow</span>
+          </div>
         </li>
         <li
-          onClick={() => {
-            setShowTaskDate(false);
-            setTaskDate(moment().add(7, 'day').format('DD/MM/YYYY'));
-          }}
           data-testid='task-date-next-week'
         >
-          <span>
-            <FaRegPaperPlane />
-          </span>
-          <span>Next week</span>
+          <div
+            onClick={() => {
+              setShowTaskDate(false);
+              setTaskDate(moment().add(7, 'day').format('DD/MM/YYYY'));
+            }}
+            onKeyDown={(e) => {
+              if (e.key === 'Enter') {
+                setShowTaskDate(false);
+                setTaskDate(moment().add(7, 'day').format('DD/MM/YYYY'));
+              }
+            }}
+            tabIndex={0}
+            aria-label='Select next 7 days as due date'
+            role='button'
+          >
+            <span>
+              <FaRegPaperPlane />
+            </span>
+            <span>Next week</span>
+          </div>
         </li>
       </ul>
     </div>

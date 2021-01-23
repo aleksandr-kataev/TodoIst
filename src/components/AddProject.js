@@ -53,22 +53,41 @@ const AddProject = () => {
             Add project
           </button>
           <span
+            aria-label='Cancel adding projects'
             data-testid='hide-project-overlay'
             className='add-project__cancel'
             onClick={() => setShow(false)}
+            onKeyDown={(e) => {
+              if (e.key === 'Enter') {
+                setShow(false);
+              }
+            }}
+            role='button'
+            tabIndex={0}
           >
             Cancel
           </span>
         </div>
       )}
-      <span className='add-project__plus'>+</span>
-      <span
+      <div
+        aria-label='Add project'
         data-testid='add-project-action'
-        className='add-project__text'
         onClick={() => setShow(!show)}
+        onKeyDown={(e) => {
+          if (e.key === 'Enter') {
+            setShow(!show);
+          }
+        }}
+        role='button'
+        tabIndex={0}
+        className='add-project__button'
       >
-        Add project
-      </span>
+        <span className='add-project__plus'>+</span>
+        <span className='add-project__text'>
+          Add project
+        </span>
+      </div>
+
     </div>
   );
 };

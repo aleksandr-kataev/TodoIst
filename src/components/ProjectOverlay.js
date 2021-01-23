@@ -21,13 +21,25 @@ const ProjectOverlay = ({
           {projects.map((project) => (
             <li
               key={project.projectId}
-              data-testid='project-overlay-action'
-              onClick={() => {
-                setProject(project.projectId);
-                setShowProjectOverlay(false);
-              }}
             >
-              {project.name}
+              <div
+                data-testid='project-overlay-action'
+                onClick={() => {
+                  setProject(project.projectId);
+                  setShowProjectOverlay(false);
+                }}
+                onKeyDown={(e) => {
+                  if (e.key === 'Enter') {
+                    setProject(project.projectId);
+                    setShowProjectOverlay(false);
+                  }
+                }}
+                tabIndex={0}
+                role='button'
+                aria-label='Select the project'
+              >
+                {project.name}
+              </div>
             </li>
           ))}
         </ul>

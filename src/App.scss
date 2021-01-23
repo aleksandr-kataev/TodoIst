@@ -110,6 +110,11 @@ $generic-bg: #db4c3f;
   }
 }
 
+@mixin transparent-button(){
+  background-color: transparent;
+  border: 0;
+}
+
 @mixin mq($from) {
   @media (max-width: $from) {
     @content;
@@ -209,13 +214,34 @@ header {
           &.settings__add {
             margin-right: 15px;
             font-size: 30px;
+            button{
+              @include transparent-button();
+              color: white;
+              cursor: pointer;
+            }
           }
           &.settings__darkmode {
             margin-right: 15px;
+            
+            button{
+              @include transparent-button();
+              color: white;
+              cursor: pointer;
+              width: 100%;
+              height: 100%;      
+            }       
+           
           }
           &.settings__logout {
             width: 60px;
-            height: 30px;
+              height: 30px;   
+            button{
+              @include transparent-button();
+              color: white;
+              cursor: pointer;
+              
+            }
+            
           }
         }
       }
@@ -260,7 +286,7 @@ header {
     cursor: pointer;
 
     &-button:focus {
-      outline: 0;
+      outline-color:  rgba(0, 0, 0, 0.5);
     }
 
     &-button {
@@ -336,8 +362,9 @@ header {
     display: -webkit-box;
     display: -ms-flexbox;
     border-bottom: $generic-border;
-    padding-left: 10px;
+    padding-left: 10px; 
     cursor: pointer;
+    align-items: center;
 
     span {
       color: #0000008a;
@@ -360,29 +387,44 @@ header {
 
   &__generic {
     li {
-      padding: 10px 0 10px 10px;
       list-style-type: none;
       color: #333;
-      display: flex;
       display: -webkit-box;
       display: -ms-flexbox;
+      display: flex;
       cursor: pointer;
-      line-height: 1.5;
+      line-height: 1.50;
       font-size: 15px;
+      padding-left: 0;
+      padding-right: 0;
 
-      span:first-of-type {
-        margin-right: 10px;
+      div:nth-child(1) {
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: flex;
+        padding: 10px 0 10px 10px;
+        width: 100%;
 
-        svg {
-          width: 18px;
-          height: 18px;
-          color: #555;
+        span:first-of-type {
+          margin-right: 10px;
+          display: -webkit-box;
+          display: -ms-flexbox;
+          display: flex;
+          -webkit-box-align: center;
+              -ms-flex-align: center;
+                  align-items: center;
+
+          svg {
+            width: 18px;
+            height: 18px;
+            color: #555;
+          }
         }
       }
       &.active,
-      &:hover {
-        background-color: white;
-      }
+        &:hover {
+          background-color: white;
+        }
     }
   }
 }
@@ -511,6 +553,9 @@ header {
   &__cancel {
     @include cancel();
   }
+  &__button{
+    padding: 3px  ;
+  }
 }
 
 // add task
@@ -607,6 +652,7 @@ header {
   @include no-select();
   cursor: pointer;
   margin-bottom: 20px;
+  padding: 5px;
 }
 
 .add-task__plus,
@@ -632,6 +678,15 @@ header {
 
   &__list li {
     @include task-item();
+    padding: 0;
+
+    div:nth-child(1){
+      padding: 10px;
+      width: 100%;
+      display: flex;
+      align-self: center;
+    }
+
 
     span:first-of-type {
       margin-right: 10px;
@@ -666,8 +721,19 @@ header {
   @include box-overlay(85px);
   background-color: white;
 
+  @include mq('900px') {
+    width: 200px;
+    right: 0;
+  }
+
   &__list li {
     @include task-item();
+    padding: 0;
+
+    div:nth-child(1) {
+      width: 100%;
+      padding: 10px;
+    }
   }
 }
 

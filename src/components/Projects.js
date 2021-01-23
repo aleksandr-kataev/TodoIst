@@ -1,16 +1,16 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useStateValue } from '../contextAPI/StateProvider';
 import Project from './Project';
 
 const Projects = () => {
   const [
-    { projects, tasks, selectedProject },
+    { projects, selectedProject },
     dispatch,
   ] = useStateValue();
 
   return (
-    projects &&
-    projects.map((project) => (
+    projects
+    && projects.map((project) => (
       <li
         key={project.projectId}
         data-testid='project-action-parent'

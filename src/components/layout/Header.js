@@ -27,25 +27,61 @@ const Header = ({ darkMode, setDarkMode }) => {
             <li
               data-testid='quick-add-task-action'
               className='settings__add'
-              onClick={() => {
-                setShowQuickAddTask(true);
-                setShowQuickAddTask(true);
-              }}
+
             >
-              +
+              <button
+                aria-label='Quick add task'
+                type='button'
+                onClick={() => {
+                  setShowQuickAddTask(true);
+                  setShowQuickAddTask(true);
+                }}
+                onKeyDown={(e) => {
+                  if (e.key === 'Enter') {
+                    setShowQuickAddTask(true);
+                    setShowQuickAddTask(true);
+                  }
+                }}
+                tabIndex={0}
+              >
+                +
+              </button>
             </li>
 
             <li
-              data-testid='dark-mode-action'
               className='settings__darkmode'
-              onClick={() => {
-                setDarkMode(!darkMode);
-              }}
             >
-              <FaFillDrip />
+              <button
+                aria-label='Change theme'
+                data-testid='dark-mode-action'
+                type='button'
+                onClick={() => {
+                  setDarkMode(!darkMode);
+                }}
+                onKeyDown={(e) => {
+                  if (e.key === 'Enter') {
+                    setDarkMode(!darkMode);
+                  }
+                }}
+                tabIndex={0}
+              >
+                <FaFillDrip />
+              </button>
             </li>
-            <li className='settings__logout' onClick={handleLogout}>
-              Logout
+            <li className='settings__logout'>
+              <button
+                aria-label='Logout'
+                type='button'
+                onClick={handleLogout}
+                onKeyDown={(e) => {
+                  if (e.key === 'Enter') {
+                    handleLogout();
+                  }
+                }}
+                tabIndex={0}
+              >
+                Logout
+              </button>
             </li>
           </ul>
         </div>
